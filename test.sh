@@ -8,19 +8,19 @@ PASS=0; FAIL=0
 # Test basic greeting
 output=$("$SCRIPT_DIR/greet.sh" "Alice")
 if [[ "$output" == *"Alice"* ]]; then
-  ((PASS++))
+  PASS=$((PASS + 1))
 else
   echo "FAIL: basic greeting does not contain 'Alice': $output"
-  ((FAIL++))
+  FAIL=$((FAIL + 1))
 fi
 
 # Test another name
 output=$("$SCRIPT_DIR/greet.sh" "Bob")
 if [[ "$output" == *"Bob"* ]]; then
-  ((PASS++))
+  PASS=$((PASS + 1))
 else
   echo "FAIL: greeting does not contain 'Bob': $output"
-  ((FAIL++))
+  FAIL=$((FAIL + 1))
 fi
 
 # Test empty input (commented out — this is the bug)
