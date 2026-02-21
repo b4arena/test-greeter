@@ -1,10 +1,27 @@
 #!/usr/bin/env bash
 # greet.sh — Greet a person using a random template.
-# Usage: greet.sh <name>
-# BUG: no check for empty $1 — crashes with "unbound variable" under set -u
+# Usage: greet.sh [--formal] <name>
 set -euo pipefail
 
-NAME="$1"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TEMPLATE=$(shuf -n1 "$SCRIPT_DIR/greetings.conf")
+
+FORMAL=0
+if [[ "${1:-}" == "--formal" ]]; then
+  FORMAL=1
+  shift
+fi
+
+NAME="${1:-}"
+if [[ -z "$NAME" ]]; then
+  echo "Usage: greet.sh [--formal] <name>" >&2
+  exit 1
+fi
+
+if [[ $FORMAL -eq 1 ]]; then
+  CONF="$SCRIPT_DIR/formal-greetings.conf"
+else
+  CONF="$SCRIPT_DIR/greetings.conf"
+fi
+
+TEMPLATE=$(shuf -n1 "$CONF")
 echo "${TEMPLATE/\{name\}/$NAME}"
