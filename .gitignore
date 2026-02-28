@@ -5,3 +5,6 @@
 .runtime/
 .claude/commands/
 .logs/
+
+# Beads issue tracker (local, not committed)
+.beads/
