@@ -23,8 +23,13 @@ else
   FAIL=$((FAIL + 1))
 fi
 
-# Test empty input (commented out — this is the bug)
-# output=$("$SCRIPT_DIR/greet.sh" "")
+# Test empty input
+if "$SCRIPT_DIR/greet.sh" "" >/dev/null 2>&1; then
+  echo "FAIL: empty input should return a usage error"
+  FAIL=$((FAIL + 1))
+else
+  PASS=$((PASS + 1))
+fi
 
 echo "Tests: $PASS passed, $FAIL failed"
 [[ $FAIL -eq 0 ]]
