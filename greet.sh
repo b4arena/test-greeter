@@ -4,6 +4,11 @@
 # BUG: no check for empty $1 — crashes with "unbound variable" under set -u
 set -euo pipefail
 
+# goodbye — Prints a farewell message.
+goodbye() {
+  echo 'Goodbye from fabro!'
+}
+
 NAME="$1"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEMPLATE=$(shuf -n1 "$SCRIPT_DIR/greetings.conf")
