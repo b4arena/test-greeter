@@ -4,6 +4,7 @@
 # BUG: no check for empty $1 — crashes with "unbound variable" under set -u
 set -euo pipefail
 
+# goodbye — Prints a farewell message.
 goodbye() {
   echo 'Goodbye from fabro!'
 }
