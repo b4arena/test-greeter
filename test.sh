@@ -23,8 +23,21 @@ else
   FAIL=$((FAIL + 1))
 fi
 
-# Test empty input (commented out — this is the bug)
-# output=$("$SCRIPT_DIR/greet.sh" "")
+# Test empty input — should exit with non-zero status (bug fixed)
+if "$SCRIPT_DIR/greet.sh" "" 2>/dev/null; then
+  echo "FAIL: empty name should have failed but exited 0"
+  FAIL=$((FAIL + 1))
+else
+  PASS=$((PASS + 1))
+fi
+
+# Test missing argument — should exit with non-zero status
+if "$SCRIPT_DIR/greet.sh" 2>/dev/null; then
+  echo "FAIL: missing argument should have failed but exited 0"
+  FAIL=$((FAIL + 1))
+else
+  PASS=$((PASS + 1))
+fi
 
 echo "Tests: $PASS passed, $FAIL failed"
 [[ $FAIL -eq 0 ]]
